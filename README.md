@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- create a readme file for get-me-a-chai project -->
+# Get Me A Chai ☕️
 
-## Getting Started
+A platform where creators, developers, and artists can receive support from their community through virtual chai (tea) donations. Inspired by "Buy Me A Coffee" but with a desi twist! 
 
-First, run the development server:
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Environment Variables](#environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+Get Me A Chai is a platform that allows creators to receive support from their audience in the form of chai donations. Supporters can send virtual chai to their favorite creators, helping them continue their creative work while fostering a community around the shared love for chai.
+A modern web application built with Next.js and integrated with Razorpay payment gateway, enabling secure and seamless chai (tea) donations for creators. This platform leverages:
+
+## Tech Stack
+- **Next.js** - For server-side rendering, optimized performance, and enhanced SEO
+- **Razorpay** - For secure payment processing and transaction management
+- **TailwindCSS** - For responsive and maintainable styling
+
+## Key Features
+- Server-side rendering for faster page loads
+- Secure payment processing
+- Mobile-responsive design
+- Real-time transaction updates
+
+
+## Features
+- 🫖 Simple chai donations starting from ₹5 (one cup of chai)
+- 👤 Creator profiles with customizable pages
+- 💰 Secure payment integration
+- 📊 Dashboard for tracking donations
+- 💌 Thank you messages to supporters
+- 📱 Mobile-responsive design
+
+## Tech Stack
+- Frontend:
+  - React.js
+  - Tailwind CSS
+  - Redux for state management
+  
+- Backend:
+  - Node.js
+  - Express.js
+  - MongoDB
+  
+- Payment Integration:
+  - Razorpay/Stripe
+  
+- Authentication:
+  - Using GitHub
+
+## Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/Raviast/Get-me-a-chai-project.git
+
+# Navigate to project directory
+cd get-me-a-chai
+
+# Install dependencies for backend
+npm install
+
+## Usage
+# Run the project
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
+ Create a .env file in the root directory with the following variables:
+ ```
+ # Server Configuration
+ PORT=3000
+ NODE_ENV=development
+ 
+GITHUB_ID = XXXXXXXXX
+GITHUB_SECRET = xxxxxxxxxx
+NEXT_PUBLIC_KEY_ID = XXXXXXXXXX
+KEY_SECRET = XXXXXXXXXX
+NEXT_PUBLIC_URL = http://localhost:3000
+NEXT_AUTH_URL = http://localhost:3000
+NEXT_AUTH_SECRET = xxxxxxx
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# process.env.MONGO_URI
+ # Database
+ MONGODB_URI=your_mongodb_connection_string
+ 
+ # Payment Gateway
+ RAZORPAY_KEY_ID=your_razorpay_key_id
+ RAZORPAY_KEY_SECRET=your_razorpay_secret_key
+ ```
+ 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+ # API Endpoints
+ ## Authentication
+ 
+ - POST /api/auth/route.js - Register new user
 
-To learn more about Next.js, take a look at the following resources:
+ - POST /api/auth/route.js - User login
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ - GET /api/auth/logout - User logout
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Creator Profile
 
-## Deploy on Vercel
+ - GET /api/profile/:username - Get creator profile
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ - PUT /api/profile/update - Update profile
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Donations
+ - POST /api/auth/route - Create new donation
+
+ - GET /api/donations/route - Get donation history
+
+
+# Contributing
+We welcome contributions! Please follow these steps:
+
+ 1. Fork the repository
+
+ 2. Create your feature branch 
+    ```
+    git checkout -b feature/AmazingFeature 
+    ```
+ 3. Commit your changes (``` git commit -m 'Add some AmazingFeature'```)
+
+ 4. Push to the branch (``` 
+ git push origin feature/AmazingFeature```)
+
+ 5. Open a Pull Request
+
+# License
+ This project is licensed under the MIT License - see the LICENSE file for details.
+
+# Acknowledgments
+ - Inspired by Buy Me A Coffee
+
+ - Thanks to all contributors and supporters
+
+
+Made with ❤️ and lots of chai ☕️

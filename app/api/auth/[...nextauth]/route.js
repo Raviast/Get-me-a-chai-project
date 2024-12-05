@@ -1,7 +1,34 @@
-import NextAuth from 'next-auth';
+import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
-import connectDb from '@/db/connectDb';
-import User from '@/models/User';
+import connectDb from "@/db/connectDb";
+import User from "@/models/User";
+
+export const config = {
+  api: {
+    bodyParser: false, // Disable body parser for custom middleware handling
+    externalResolver: true, // Ensures Next.js doesn't cache CORS responses
+  },
+};
+
+// CORS middleware function
+function setCors(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,DELETE,OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+
+  if (req.method === "OPTIONS") {
+    res.status(204).end(); // Handle preflight request
+    return true; // Skip further processing
+  }
+
+  return false; // Continue request handling
+}
 
 // Auth options
 export const authOptions = {
@@ -14,44 +41,33 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    // Callback to handle user sign-in
     async signIn({ user, account }) {
       if (account.provider === "github") {
         await connectDb();
-
-        // Check if the user already exists in the database
-        const currentUser = await User.findOne({ email: user.email });
-        if (!currentUser) {
-          // Create a new user if they don't exist
+        const existingUser = await User.findOne({ email: user.email });
+        if (!existingUser) {
           await User.create({
             email: user.email,
             username: user.email.split("@")[0],
           });
         }
-
-        return true; // Allow sign-in
+        return true;
       }
-
-      return false; // Deny sign-in for other providers
+      return false;
     },
-
-    // Callback to modify the session
-    async session({ session, token }) {
+    async session({ session }) {
       await connectDb();
       const dbUser = await User.findOne({ email: session.user.email });
-
-      if (dbUser) {
-        session.user.name = dbUser.username; // Add username to the session
-      }
-
-      return session; // Return the modified session
+      if (dbUser) session.user.name = dbUser.username;
+      return session;
     },
   },
 };
 
-// Export NextAuth with authOptions
-export default NextAuth(authOptions);
+export default async function handler(req, res) {
+  // Apply CORS middleware
+  if (setCors(req, res)) return;
 
-// Explicitly export HTTP methods for Next.js 13+
-export const GET = NextAuth(authOptions);
-export const POST = NextAuth(authOptions);
+  // Handle NextAuth
+  return NextAuth(authOptions)(req, res);
+}

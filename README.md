@@ -1,6 +1,8 @@
 <!-- create a readme file for get-me-a-chai project -->
 # Get Me A Chai ☕️
 
+![Get-me-a-chai-project](https://socialify.git.ci/Raviast/Get-me-a-chai-project/image?description=1&descriptionEditable=A%20platform%20where%20creators%2C%20developers%2C%20and%20artists%20can%20receive%20support%20from%20their%20community%20through%20virtual%20chai%20(tea)%20donations.%20&language=1&name=1&owner=1&stargazers=1&theme=Light)
+
 A platform where creators, developers, and artists can receive support from their community through virtual chai (tea) donations. Inspired by "Buy Me A Coffee" but with a desi twist! 
 
 ## Table of Contents
@@ -30,7 +32,7 @@ A modern web application built with Next.js and integrated with Razorpay payment
 
 
 ## Features
-- 🫖 Simple chai donations starting from ₹5 (one cup of chai)
+-   Simple chai donations starting from ₹5 (one cup of chai)
 - 👤 Creator profiles with customizable pages
 - 💰 Secure payment integration
 - 📊 Dashboard for tracking donations

@@ -9,6 +9,19 @@ import connectDb from '@/db/connectDb';
 import User from '@/models/User';
 import Payment from '@/models/Payment';
  
+// Add this export to handle OPTIONS requests
+export async function OPTIONS(request) {
+  const response = new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*', // Or specify your domain
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400', // 24 hours
+    },
+  })
+  return response
+}
 
 export const authoptions =  NextAuth({
     providers: [
@@ -61,4 +74,16 @@ export const authoptions =  NextAuth({
     secret: process.env.NEXT_AUTH_SECRET,
   })
 
-  export { authoptions as GET, authoptions as POST}
+  // Modify the exports to include CORS headers
+const handler = async (req, res) => {
+  const response = await authoptions(req, res)
+  
+  // Add CORS headers to the response
+  response.headers.set('Access-Control-Allow-Credentials', 'true')
+  response.headers.set('Access-Control-Allow-Origin', '*') // Or specify your domain
+  response.headers.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  
+  return response
+}
+export { handler as GET, handler as POST }
